@@ -17,6 +17,21 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
+  overflow:hidden;
+}
+
+/* Floating elements */
+.float {
+  position:fixed;
+  bottom:-20px;
+  font-size:14px;
+  opacity:0.4;
+  animation:floatUp linear infinite;
+}
+@keyframes floatUp {
+  0% { transform:translateY(0); opacity:0; }
+  20% { opacity:0.5; }
+  100% { transform:translateY(-120vh); opacity:0; }
 }
 
 /* Envelope */
@@ -29,6 +44,12 @@ body {
   cursor:pointer;
   box-shadow:0 15px 40px rgba(0,0,0,0.15);
   margin-top:20px;
+  transition:opacity 1s, transform 1s;
+}
+
+.envelope.hide {
+  opacity:0;
+  transform:scale(0.8);
 }
 
 .flap {
@@ -39,7 +60,6 @@ body {
   top:0;
   transition:0.8s;
 }
-
 .open .flap {
   transform:rotateX(180deg);
 }
@@ -50,17 +70,18 @@ body {
   bottom:-40px;
   left:50%;
   transform:translateX(-50%);
-  width:75px;
-  height:75px;
+  width:80px;
+  height:80px;
   border-radius:50%;
-  overflow:hidden;
-  background:#ff8fab;
-}
-.seal img {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  opacity:0.3;
+  background:#ff4d6d;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color:white;
+  font-size:10px;
+  padding:6px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 /* Letter */
@@ -68,22 +89,16 @@ body {
   display:none;
   opacity:0;
   transition:1s;
-
   width:360px;
   padding:30px;
   border-radius:16px;
-
-  background:
-    repeating-linear-gradient(
-      to bottom,
-      #fff,
-      #fff 30px,
-      #f2ccd6 31px
-    );
-
+  background:repeating-linear-gradient(
+    to bottom,
+    #fff,
+    #fff 30px,
+    #f2ccd6 31px
+  );
   box-shadow:0 20px 50px rgba(0,0,0,0.15);
-  font-family:'Cormorant Garamond',serif;
-
   margin-top:50px;
 }
 
@@ -95,36 +110,31 @@ body {
 h1 {
   text-align:center;
   font-family:'Playfair Display', serif;
-  font-size:24px;
-  margin-bottom:15px;
 }
 
 p {
   text-align:center;
+  font-family:'Cormorant Garamond', serif;
   line-height:1.9;
-}
-
-/* Gallery title */
-.gallery-title {
-  display:none;
-  margin-top:25px;
-  font-size:18px;
-  color:#d07a8c;
-  text-align:center;
 }
 
 /* Images */
 .images {
   display:none;
   margin-top:15px;
-  text-align:center;
 }
-
 .images img {
   width:100px;
   border-radius:14px;
   margin:6px;
-  box-shadow:0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Title */
+.gallery-title {
+  display:none;
+  margin-top:20px;
+  font-size:18px;
+  color:#d07a8c;
 }
 
 /* Music button */
@@ -136,7 +146,6 @@ p {
   background:#ffb6c1;
   padding:10px;
   border-radius:50%;
-  cursor:pointer;
 }
 </style>
 
@@ -146,30 +155,27 @@ p {
 
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 
-<div class="envelope" onclick="openLetter(this)">
+<div class="envelope" id="envelope" onclick="openLetter(this)">
   <div class="flap"></div>
+
   <div class="seal">
-    <img src="IMG_20260501_194540.jpg">
+    with love for Asthuu ❤️
   </div>
 </div>
 
 <div class="letter" id="letter">
 <h1>Letter For My Future Doctor 🩺</h1>
-
 <p>
 Hellooo Asthuu ✨<br><br>
+ik you must be a lil tensed and stressed abt ur do kaudi ka exam (neet) rn...<br><br>
 
-ik you must be a lil tensed and stressed abt ur do kaudi ka exam (neet) rn, but hey… cool ppl like you don’t let stress win like that 😤<br><br>
+stay calm, one question at a time.<br><br>
 
-at this point, all you gotta do is walk in with a calm mind and just take it one question at a time…<br><br>
-
-ik how much you've worked for this… you’re gonna do better than you think.<br><br>
-
-you don’t need an exam to prove your worth, but I already know you’re gonna make it… my future doctor 🥹🩺<br><br>
+ik how hard you've worked, you're gonna do amazing.<br><br>
 
 as said in The Amazing Spider-Man by Gwen Stacy:<br><br>
 
-“No matter how buried it gets, or how lost you feel, you must promise me that you will hold on to hope. Keep it alive. We have to be greater than what we suffer.”<br><br>
+"No matter how buried it gets, or how lost you feel, you must promise me that you will hold on to hope. Keep it alive. We have to be greater than what we suffer."<br><br>
 
 — your forever supporter 💌
 
@@ -200,8 +206,12 @@ function openLetter(el){
   el.classList.add("open");
 
   setTimeout(()=>{
+    document.getElementById("envelope").classList.add("hide");
+  },600);
+
+  setTimeout(()=>{
     document.getElementById("letter").classList.add("show");
-  },800);
+  },1200);
 
   setTimeout(()=>{
     document.getElementById("galleryTitle").style.display="block";
@@ -232,6 +242,16 @@ function toggleMusic(){
   let m=document.getElementById("music");
   if(m.paused) m.play();
   else m.pause();
+}
+
+/* floating hearts + stars */
+for(let i=0;i<20;i++){
+  let el=document.createElement("div");
+  el.className="float";
+  el.innerHTML=Math.random()>0.5?"💗":"✨";
+  el.style.left=Math.random()*100+"%";
+  el.style.animationDuration=(6+Math.random()*6)+"s";
+  document.body.appendChild(el);
 }
 </script>
 
