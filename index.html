@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Asthuu 💌</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond&family=Quicksand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond&family=Quicksand&family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -17,18 +17,10 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
-  overflow-y:auto; /* scroll enabled */
+  overflow-y:auto;
 }
 
-/* Hover fade effect */
-* {
-  transition:opacity 0.3s ease;
-}
-*:hover {
-  opacity:0.85;
-}
-
-/* Floating hearts + stars */
+/* Floating */
 .float {
   position:fixed;
   bottom:-20px;
@@ -52,13 +44,11 @@ body {
   position:relative;
   cursor:pointer;
   box-shadow:0 20px 60px rgba(0,0,0,0.2);
-  margin-top:20px;
-  transition:all 1s ease;
+  transition:1s;
 }
 .envelope.hide {
   opacity:0;
-  transform:scale(0.7) rotate(-5deg);
-  filter:blur(4px);
+  transform:scale(0.7);
 }
 
 /* Flap */
@@ -70,9 +60,7 @@ body {
   top:0;
   transition:0.8s;
 }
-.open .flap {
-  transform:rotateX(180deg);
-}
+.open .flap { transform:rotateX(180deg); }
 
 /* Stamp */
 .seal {
@@ -91,11 +79,7 @@ body {
   text-align:center;
   color:white;
   font-size:10px;
-  padding:8px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
-
-/* Bunny image inside stamp */
 .seal img {
   position:absolute;
   width:100%;
@@ -108,8 +92,7 @@ body {
 .letter {
   display:none;
   opacity:0;
-  transform:translateY(40px);
-  transition:all 1.2s ease;
+  transition:1.2s;
 
   width:360px;
   padding:30px;
@@ -119,8 +102,8 @@ body {
     repeating-linear-gradient(
       to bottom,
       #fff,
-      #fff 30px,
-      #f2ccd6 31px
+      #fff 32px,
+      #f3c9d3 33px
     );
 
   box-shadow:0 25px 70px rgba(0,0,0,0.2);
@@ -129,43 +112,49 @@ body {
 .letter.show {
   display:block;
   opacity:1;
-  transform:translateY(0);
+}
+
+/* TEXT FIX (important) */
+p {
+  font-family:'Cormorant Garamond',serif;
+  line-height:32px; /* EXACT match to paper lines */
+  margin:0;
+  text-align:center;
 }
 
 /* Heading */
 h1 {
   text-align:center;
   font-family:'Playfair Display', serif;
-  margin-bottom:15px;
+  margin-bottom:10px;
 }
 
-/* Text */
-p {
-  text-align:center;
-  font-family:'Cormorant Garamond', serif;
-  line-height:1.9;
+/* Gwen quote */
+.quote {
+  margin-top:15px;
+  padding:15px;
+  border-radius:12px;
+  background:#f8cdd7;
+  font-family:'Great Vibes', cursive;
+  font-size:18px;
+  line-height:1.6;
 }
 
-/* Gallery title */
+/* Gallery */
 .gallery-title {
   display:none;
   margin-top:25px;
   font-size:18px;
   color:#d07a8c;
-  text-align:center;
 }
-
-/* Images */
 .images {
   display:none;
   margin-top:15px;
-  text-align:center;
 }
 .images img {
   width:100px;
   border-radius:14px;
   margin:6px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.2);
 }
 
 /* Music button */
@@ -188,7 +177,6 @@ p {
 
 <div class="envelope" id="envelope" onclick="openLetter(this)">
   <div class="flap"></div>
-
   <div class="seal">
     <img src="IMG_20260501_194540.jpg">
     <span>with love for Asthuu ❤️</span>
@@ -196,6 +184,7 @@ p {
 </div>
 
 <div class="letter" id="letter">
+
 <h1>Letter For My Future Doctor 🩺</h1>
 
 <p>
@@ -209,13 +198,18 @@ ik how much you've worked for this… you’re gonna do better than you think.<b
 
 you don’t need an exam to prove your worth, but I already know you’re gonna make it… my future doctor 🥹🩺<br><br>
 
-as said in The Amazing Spider-Man by Gwen Stacy:<br><br>
-
-“No matter how buried it gets, or how lost you feel, you must promise me that you will hold on to hope. Keep it alive. We have to be greater than what we suffer.”<br><br>
-
-— your forever supporter 💌
+as said in The Amazing Spider-Man by Gwen Stacy:
 
 </p>
+
+<div class="quote">
+“No matter how buried it gets, or how lost you feel, you must promise me that you will hold on to hope. Keep it alive. We have to be greater than what we suffer.”
+</div>
+
+<p>
+<br>— your forever supporter 💌
+</p>
+
 </div>
 
 <div id="galleryTitle" class="gallery-title">
@@ -280,7 +274,7 @@ function toggleMusic(){
   else m.pause();
 }
 
-/* Floating hearts + stars */
+/* floating */
 for(let i=0;i<25;i++){
   let el=document.createElement("div");
   el.className="float";
