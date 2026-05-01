@@ -1,8 +1,14 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Asthuu 💌</title><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond&family=Quicksand&display=swap" rel="stylesheet"><style>
+<title>For Asthuu 💌</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond&family=Quicksand&display=swap" rel="stylesheet">
+
+<style>
 body {
   margin:0;
   font-family:'Quicksand',sans-serif;
@@ -56,7 +62,7 @@ body {
 }
 .open .flap{transform:rotateX(180deg);}
 
-/* Seal with image */
+/* Seal */
 .seal {
   position:absolute;
   bottom:-30px;
@@ -67,7 +73,6 @@ body {
   border-radius:50%;
   overflow:hidden;
   background:#ff8fab;
-  box-shadow:0 6px 20px rgba(0,0,0,0.2);
 }
 .seal img {
   width:100%;
@@ -83,7 +88,6 @@ body {
   justify-content:center;
   font-size:10px;
   color:white;
-  text-align:center;
 }
 
 /* Letter */
@@ -99,21 +103,14 @@ body {
   margin-top:30px;
   box-shadow:0 15px 50px rgba(0,0,0,0.1);
 }
-
 .letter.show {
   display:block;
   opacity:1;
   transform:translateY(0);
 }
 
-h1 {
-  font-family:'Playfair Display',serif;
-}
-
-p {
-  font-family:'Cormorant Garamond',serif;
-  line-height:1.7;
-}
+h1 {font-family:'Playfair Display',serif;}
+p {font-family:'Cormorant Garamond',serif; line-height:1.7;}
 
 /* Images */
 .images {
@@ -123,14 +120,11 @@ p {
   transition:1s;
 }
 .images.show{display:block;opacity:1;}
-
 .images img {
   width:100px;
   border-radius:12px;
   margin:6px;
-  transition:transform .3s;
 }
-.images img:hover{transform:scale(1.1);}
 
 /* Music button */
 .music-btn {
@@ -143,15 +137,32 @@ p {
   border-radius:50%;
   cursor:pointer;
 }
-</style></head><body><button class="music-btn" onclick="toggleMusic()">🎵</button>
+</style>
 
-<div class="container"><div class="envelope" onclick="openLetter(this)">
-<div class="flap"></div><div class="seal">
-<img src="YOUR_IMAGE_1.jpg">
-<span>With love 💌</span>
-</div></div><div class="letter" id="letter">
-<h1>Letter For My Future Doctor 🩺</h1><p>
-Hellooo Asthuu ✨<br><br>ik you must be a lil tensed and stressed abt ur do kaudi ka exam (neet) rn, but hey… cool ppl like you don’t let stress win like that 😤<br><br>
+</head>
+
+<body>
+
+<button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<div class="container">
+
+<div class="envelope" onclick="openLetter(this)">
+  <div class="flap"></div>
+
+  <div class="seal">
+    <img src="IMG_20260501_194540.jpg">
+    <span>With love 💌</span>
+  </div>
+</div>
+
+<div class="letter" id="letter">
+<h1>Letter For My Future Doctor 🩺</h1>
+
+<p>
+Hellooo Asthuu ✨<br><br>
+
+ik you must be a lil tensed and stressed abt ur do kaudi ka exam (neet) rn, but hey… cool ppl like you don’t let stress win like that 😤<br><br>
 
 at this point, all you gotta do is walk in with a calm mind and just take it one question at a time…<br><br>
 
@@ -166,26 +177,31 @@ as said in The Amazing Spider-Man by Gwen Stacy:<br><br>
 — your forever supporter 💌
 
 </p>
-</div><div class="images" id="images">
-<img src="YOUR_IMAGE_1.jpg">
-<img src="YOUR_IMAGE_2.jpg">
-<img src="YOUR_IMAGE_3.jpg">
-</div></div><audio id="music" loop>
-<source src="YOUR_SONG.mp3" type="audio/mpeg">
-</audio><script>
+</div>
+
+<div class="images" id="images">
+  <img src="IMG_20260501_194540.jpg">
+  <img src="IMG_20260501_193808.jpg">
+  <img src="IMG_20260501_193817.jpg">
+</div>
+
+</div>
+
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<script>
 let opened=false;
 
 function openLetter(el){
   if(opened)return;
   opened=true;
+
   el.classList.add("open");
 
-  let letter=document.getElementById("letter");
-  setTimeout(()=>{letter.classList.add("show");},800);
-
-  setTimeout(()=>{
-    document.getElementById("images").classList.add("show");
-  },2000);
+  setTimeout(()=>{document.getElementById("letter").classList.add("show");},800);
+  setTimeout(()=>{document.getElementById("images").classList.add("show");},2000);
 
   playMusic();
 }
@@ -194,6 +210,7 @@ function playMusic(){
   let m=document.getElementById("music");
   m.volume=0;
   m.play();
+
   let v=0;
   let fade=setInterval(()=>{
     v+=0.05;
@@ -208,7 +225,7 @@ function toggleMusic(){
   else m.pause();
 }
 
-/* hearts */
+/* floating hearts */
 for(let i=0;i<15;i++){
   let h=document.createElement("div");
   h.className="heart";
@@ -217,5 +234,7 @@ for(let i=0;i<15;i++){
   h.style.animationDuration=(6+Math.random()*5)+"s";
   document.body.appendChild(h);
 }
-</script></body>
+</script>
+
+</body>
 </html>
