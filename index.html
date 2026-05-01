@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Asthuu 💌</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond&family=Quicksand&family=Great+Vibes&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond&family=Quicksand&family=Prata&display=swap" rel="stylesheet">
 
 <style>
 body {
@@ -20,7 +20,15 @@ body {
   overflow-y:auto;
 }
 
-/* Floating */
+/* hover effect */
+* {
+  transition:opacity 0.3s ease;
+}
+*:hover {
+  opacity:0.9;
+}
+
+/* floating */
 .float {
   position:fixed;
   bottom:-20px;
@@ -35,7 +43,7 @@ body {
   100% { transform:translateY(-120vh); opacity:0; }
 }
 
-/* Envelope */
+/* envelope */
 .envelope {
   width:260px;
   height:180px;
@@ -48,10 +56,11 @@ body {
 }
 .envelope.hide {
   opacity:0;
-  transform:scale(0.7);
+  transform:scale(0.7) rotate(-5deg);
+  filter:blur(4px);
 }
 
-/* Flap */
+/* flap */
 .flap {
   position:absolute;
   border-left:130px solid transparent;
@@ -62,7 +71,7 @@ body {
 }
 .open .flap { transform:rotateX(180deg); }
 
-/* Stamp */
+/* stamp */
 .seal {
   position:absolute;
   bottom:-45px;
@@ -79,6 +88,8 @@ body {
   text-align:center;
   color:white;
   font-size:10px;
+  padding:8px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.3);
 }
 .seal img {
   position:absolute;
@@ -88,11 +99,12 @@ body {
   opacity:0.35;
 }
 
-/* Letter */
+/* letter */
 .letter {
   display:none;
   opacity:0;
-  transition:1.2s;
+  transform:translateY(40px);
+  transition:all 1.2s ease;
 
   width:360px;
   padding:30px;
@@ -112,52 +124,56 @@ body {
 .letter.show {
   display:block;
   opacity:1;
+  transform:translateY(0);
 }
 
-/* TEXT FIX (important) */
-p {
-  font-family:'Cormorant Garamond',serif;
-  line-height:32px; /* EXACT match to paper lines */
-  margin:0;
-  text-align:center;
-}
-
-/* Heading */
 h1 {
   text-align:center;
   font-family:'Playfair Display', serif;
   margin-bottom:10px;
 }
 
-/* Gwen quote */
-.quote {
-  margin-top:15px;
-  padding:15px;
-  border-radius:12px;
-  background:#f8cdd7;
-  font-family:'Great Vibes', cursive;
-  font-size:18px;
-  line-height:1.6;
+/* FIXED TEXT ALIGNMENT */
+p {
+  font-family:'Cormorant Garamond',serif;
+  line-height:32px;
+  margin:0;
+  text-align:center;
 }
 
-/* Gallery */
+/* quote (UPDATED FONT) */
+.quote {
+  margin-top:15px;
+  padding:18px;
+  border-radius:12px;
+  background:#f6c5d1;
+  font-family:'Prata', serif;
+  font-size:16px;
+  line-height:1.7;
+  color:#6b2c38;
+  text-align:center;
+}
+
+/* gallery */
 .gallery-title {
   display:none;
   margin-top:25px;
   font-size:18px;
   color:#d07a8c;
 }
+
 .images {
   display:none;
   margin-top:15px;
 }
 .images img {
-  width:100px;
-  border-radius:14px;
-  margin:6px;
+  width:125px;
+  border-radius:16px;
+  margin:8px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Music button */
+/* music */
 .music-btn {
   position:fixed;
   top:10px;
@@ -177,6 +193,7 @@ h1 {
 
 <div class="envelope" id="envelope" onclick="openLetter(this)">
   <div class="flap"></div>
+
   <div class="seal">
     <img src="IMG_20260501_194540.jpg">
     <span>with love for Asthuu ❤️</span>
@@ -274,7 +291,7 @@ function toggleMusic(){
   else m.pause();
 }
 
-/* floating */
+/* floating elements */
 for(let i=0;i<25;i++){
   let el=document.createElement("div");
   el.className="float";
