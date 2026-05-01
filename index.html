@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Asthuu 💌</title><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Cormorant+Garamond&family=Quicksand&display=swap" rel="stylesheet"><style>
+body {
+  margin:0;
+  font-family:'Quicksand',sans-serif;
+  background:linear-gradient(135deg,#fdeff4,#fff6f9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Floating hearts */
+.heart {
+  position:fixed;
+  bottom:-10px;
+  font-size:14px;
+  animation:float 8s linear infinite;
+  opacity:0.4;
+}
+@keyframes float {
+  0%{transform:translateY(0);opacity:0;}
+  20%{opacity:0.5;}
+  100%{transform:translateY(-120vh);opacity:0;}
+}
+
+/* Envelope */
+.container{text-align:center;}
+
+.envelope {
+  width:260px;
+  height:180px;
+  background:#fff;
+  border-radius:12px;
+  position:relative;
+  cursor:pointer;
+  box-shadow:0 15px 40px rgba(0,0,0,0.15);
+  transition:transform .3s;
+}
+.envelope:hover{transform:scale(1.05);}
+
+.flap {
+  position:absolute;
+  width:0;
+  height:0;
+  border-left:130px solid transparent;
+  border-right:130px solid transparent;
+  border-top:90px solid #ffd6e0;
+  top:0;
+  transition:transform .8s;
+  transform-origin:top;
+}
+.open .flap{transform:rotateX(180deg);}
+
+/* Seal with image */
+.seal {
+  position:absolute;
+  bottom:-30px;
+  left:50%;
+  transform:translateX(-50%);
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#ff8fab;
+  box-shadow:0 6px 20px rgba(0,0,0,0.2);
+}
+.seal img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0.3;
+}
+.seal span {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:10px;
+  color:white;
+  text-align:center;
+}
+
+/* Letter */
+.letter {
+  display:none;
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 1s;
+  background:white;
+  padding:25px;
+  border-radius:18px;
+  max-width:350px;
+  margin-top:30px;
+  box-shadow:0 15px 50px rgba(0,0,0,0.1);
+}
+
+.letter.show {
+  display:block;
+  opacity:1;
+  transform:translateY(0);
+}
+
+h1 {
+  font-family:'Playfair Display',serif;
+}
+
+p {
+  font-family:'Cormorant Garamond',serif;
+  line-height:1.7;
+}
+
+/* Images */
+.images {
+  display:none;
+  margin-top:20px;
+  opacity:0;
+  transition:1s;
+}
+.images.show{display:block;opacity:1;}
+
+.images img {
+  width:100px;
+  border-radius:12px;
+  margin:6px;
+  transition:transform .3s;
+}
+.images img:hover{transform:scale(1.1);}
+
+/* Music button */
+.music-btn {
+  position:fixed;
+  top:10px;
+  right:10px;
+  border:none;
+  background:#ffb6c1;
+  padding:10px;
+  border-radius:50%;
+  cursor:pointer;
+}
+</style></head><body><button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+<div class="container"><div class="envelope" onclick="openLetter(this)">
+<div class="flap"></div><div class="seal">
+<img src="YOUR_IMAGE_1.jpg">
+<span>With love 💌</span>
+</div></div><div class="letter" id="letter">
+<h1>Letter For My Future Doctor 🩺</h1><p>
+Hellooo Asthuu ✨<br><br>ik you must be a lil tensed and stressed abt ur do kaudi ka exam (neet) rn, but hey… cool ppl like you don’t let stress win like that 😤<br><br>
+
+at this point, all you gotta do is walk in with a calm mind and just take it one question at a time…<br><br>
+
+ik how much you've worked for this… you’re gonna do better than you think.<br><br>
+
+you don’t need an exam to prove your worth, but I already know you’re gonna make it… my future doctor 🥹🩺<br><br>
+
+as said in The Amazing Spider-Man by Gwen Stacy:<br><br>
+
+“No matter how buried it gets… you must hold on to hope.”<br><br>
+
+— your forever supporter 💌
+
+</p>
+</div><div class="images" id="images">
+<img src="YOUR_IMAGE_1.jpg">
+<img src="YOUR_IMAGE_2.jpg">
+<img src="YOUR_IMAGE_3.jpg">
+</div></div><audio id="music" loop>
+<source src="YOUR_SONG.mp3" type="audio/mpeg">
+</audio><script>
+let opened=false;
+
+function openLetter(el){
+  if(opened)return;
+  opened=true;
+  el.classList.add("open");
+
+  let letter=document.getElementById("letter");
+  setTimeout(()=>{letter.classList.add("show");},800);
+
+  setTimeout(()=>{
+    document.getElementById("images").classList.add("show");
+  },2000);
+
+  playMusic();
+}
+
+function playMusic(){
+  let m=document.getElementById("music");
+  m.volume=0;
+  m.play();
+  let v=0;
+  let fade=setInterval(()=>{
+    v+=0.05;
+    if(v>=0.3){m.volume=0.3;clearInterval(fade);}
+    else m.volume=v;
+  },200);
+}
+
+function toggleMusic(){
+  let m=document.getElementById("music");
+  if(m.paused)m.play();
+  else m.pause();
+}
+
+/* hearts */
+for(let i=0;i<15;i++){
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="💗";
+  h.style.left=Math.random()*100+"%";
+  h.style.animationDuration=(6+Math.random()*5)+"s";
+  document.body.appendChild(h);
+}
+</script></body>
+</html>
