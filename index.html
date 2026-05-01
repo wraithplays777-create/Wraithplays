@@ -12,64 +12,79 @@
 body {
   margin:0;
   font-family:'Quicksand',sans-serif;
-  background:linear-gradient(135deg,#fdeff4,#fff6f9);
+  background:linear-gradient(135deg,#f8e7ec,#f5e0e6);
   display:flex;
   justify-content:center;
   align-items:center;
   min-height:100vh;
-  overflow-x:hidden;
+  flex-direction:column;
 }
 
-/* Floating hearts */
-.heart {
-  position:fixed;
-  bottom:-10px;
-  font-size:14px;
-  animation:float 8s linear infinite;
-  opacity:0.4;
+/* Letter paper */
+.letter {
+  display:none;
+  opacity:0;
+  transition:1s;
+  width:340px;
+  padding:25px;
+  border-radius:12px;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      #fff,
+      #fff 28px,
+      #f1cdd6 29px
+    );
+  box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  font-family:'Cormorant Garamond',serif;
 }
-@keyframes float {
-  0%{transform:translateY(0);opacity:0;}
-  20%{opacity:0.5;}
-  100%{transform:translateY(-120vh);opacity:0;}
+
+.letter.show {
+  display:block;
+  opacity:1;
+}
+
+h1 {
+  text-align:center;
+  font-family:'Playfair Display',serif;
+  margin-bottom:10px;
+}
+
+p {
+  line-height:1.8;
+  text-align:center;
 }
 
 /* Envelope */
-.container{
-  text-align:center;
-  padding:20px;
-}
-
 .envelope {
-  overflow:hidden;
-  width:260px;
-  height:180px;
+  width:250px;
+  height:170px;
   background:#fff;
-  border-radius:12px;
+  border-radius:10px;
   position:relative;
   cursor:pointer;
-  box-shadow:0 15px 40px rgba(0,0,0,0.15);
-  transition:transform .3s;
+  margin-bottom:20px;
 }
-.envelope:hover{transform:scale(1.05);}
 
 .flap {
   position:absolute;
+  border-left:125px solid transparent;
+  border-right:125px solid transparent;
+  border-top:80px solid #f6c8d5;
+  top:0;
   width:0;
   height:0;
-  border-left:130px solid transparent;
-  border-right:130px solid transparent;
-  border-top:90px solid #ffd6e0;
-  top:0;
-  transition:transform .8s;
-  transform-origin:top;
+  transition:0.8s;
 }
-.open .flap{transform:rotateX(180deg);}
 
-/* Seal */
+.open .flap {
+  transform:rotateX(180deg);
+}
+
+/* Stamp */
 .seal {
   position:absolute;
-  bottom:-30px;
+  bottom:-35px;
   left:50%;
   transform:translateX(-50%);
   width:70px;
@@ -84,51 +99,25 @@ body {
   object-fit:cover;
   opacity:0.3;
 }
-.seal span {
-  position:absolute;
-  inset:0;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:10px;
-  color:white;
-}
 
-/* Letter */
-.letter {
-  margin-top:40px;
+/* Gallery title */
+.gallery-title {
   display:none;
-  opacity:0;
-  transform:translateY(20px);
-  transition:all 1s;
-  background:white;
-  padding:25px;
-  border-radius:18px;
-  max-width:350px;
-  margin-top:30px;
-  box-shadow:0 15px 50px rgba(0,0,0,0.1);
+  margin-top:20px;
+  font-size:18px;
+  color:#b25c6d;
 }
-.letter.show {
-  display:block;
-  opacity:1;
-  transform:translateY(0);
-}
-
-h1 {font-family:'Playfair Display',serif;}
-p {font-family:'Cormorant Garamond',serif; line-height:1.7;}
 
 /* Images */
 .images {
   display:none;
-  margin-top:30px;
-  opacity:0;
-  transition:1s;
+  margin-top:15px;
 }
-.images.show{display:block;opacity:1;}
+
 .images img {
   width:100px;
   border-radius:12px;
-  margin:6px;
+  margin:5px;
 }
 
 /* Music button */
@@ -150,14 +139,10 @@ p {font-family:'Cormorant Garamond',serif; line-height:1.7;}
 
 <button class="music-btn" onclick="toggleMusic()">🎵</button>
 
-<div class="container">
-
 <div class="envelope" onclick="openLetter(this)">
   <div class="flap"></div>
-
   <div class="seal">
     <img src="IMG_20260501_194540.jpg">
-    <span>With love 💌</span>
   </div>
 </div>
 
@@ -177,20 +162,21 @@ you don’t need an exam to prove your worth, but I already know you’re gonna 
 
 as said in The Amazing Spider-Man by Gwen Stacy:<br><br>
 
-“No matter how buried it gets… you must hold on to hope.”<br><br>
+“No matter how buried it gets, or how lost you feel, you must promise me that you will hold on to hope. Keep it alive. We have to be greater than what we suffer.”<br><br>
 
 — your forever supporter 💌
 
 </p>
 </div>
-  
-<h3 style="margin-top:20px;">some of my fav versions of you 🫶</h3>
-<div class="images" id="images">
-  <img src="IMG_20260501_193825.jpg">
-  <img src="IMG_20260501_193808.jpg">
-  <img src="IMG_20260501_193817.jpg">
+
+<div id="galleryTitle" class="gallery-title">
+✨ my cutu future doctor 🫶🏻
 </div>
 
+<div class="images" id="images">
+  <img src="IMG_20260501_194540.jpg">
+  <img src="IMG_20260501_193808.jpg">
+  <img src="IMG_20260501_193817.jpg">
 </div>
 
 <audio id="music" loop>
@@ -202,30 +188,18 @@ let opened=false;
 
 function openLetter(el){
   if(opened) return;
-  opened = true;
+  opened=true;
 
   el.classList.add("open");
 
-  // fade out envelope
-  setTimeout(() => {
-    el.style.transition = "opacity 0.5s ease";
-    el.style.opacity = "0";
-  }, 600);
-
-  // remove it
-  setTimeout(() => {
-    el.style.display = "none";
-  }, 1100);
-
-  // show letter
-  setTimeout(() => {
+  setTimeout(()=>{
     document.getElementById("letter").classList.add("show");
-  }, 900);
+  },800);
 
-  // show images
-  setTimeout(() => {
-    document.getElementById("images").classList.add("show");
-  }, 2000);
+  setTimeout(()=>{
+    document.getElementById("galleryTitle").style.display="block";
+    document.getElementById("images").style.display="block";
+  },2000);
 
   playMusic();
 }
@@ -234,29 +208,22 @@ function playMusic(){
   let m=document.getElementById("music");
   m.volume=0;
   m.play();
-
   let v=0;
   let fade=setInterval(()=>{
     v+=0.05;
-    if(v>=0.3){m.volume=0.3;clearInterval(fade);}
-    else m.volume=v;
+    if(v>=0.3){
+      m.volume=0.3;
+      clearInterval(fade);
+    } else {
+      m.volume=v;
+    }
   },200);
 }
 
 function toggleMusic(){
   let m=document.getElementById("music");
-  if(m.paused)m.play();
+  if(m.paused) m.play();
   else m.pause();
-}
-
-/* floating hearts */
-for(let i=0;i<15;i++){
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerHTML="💗";
-  h.style.left=Math.random()*100+"%";
-  h.style.animationDuration=(6+Math.random()*5)+"s";
-  document.body.appendChild(h);
 }
 </script>
 
