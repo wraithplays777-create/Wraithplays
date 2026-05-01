@@ -201,13 +201,31 @@ as said in The Amazing Spider-Man by Gwen Stacy:<br><br>
 let opened=false;
 
 function openLetter(el){
-  if(opened)return;
-  opened=true;
+  if(opened) return;
+  opened = true;
 
   el.classList.add("open");
 
-  setTimeout(()=>{document.getElementById("letter").classList.add("show");},800);
-  setTimeout(()=>{document.getElementById("images").classList.add("show");},2000);
+  // fade out envelope
+  setTimeout(() => {
+    el.style.transition = "opacity 0.5s ease";
+    el.style.opacity = "0";
+  }, 600);
+
+  // remove it
+  setTimeout(() => {
+    el.style.display = "none";
+  }, 1100);
+
+  // show letter
+  setTimeout(() => {
+    document.getElementById("letter").classList.add("show");
+  }, 900);
+
+  // show images
+  setTimeout(() => {
+    document.getElementById("images").classList.add("show");
+  }, 2000);
 
   playMusic();
 }
